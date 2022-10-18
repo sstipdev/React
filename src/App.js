@@ -9,6 +9,7 @@ function App() {
   const post = "강남 테헤란로";
   const [arr, setArr] = useState(["남자 코트 추천", "강남 우동맛집", "파이썬 독학"]);
   const [good, setGood] = useState(0);
+  const [modal, setModal] = useState(false);
 
   // const func = () => {
   //   setGood(good + 1);
@@ -56,11 +57,18 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
-        <h4>{arr[2]}</h4>
+        <h4
+          onClick={() => {
+            modal === true ? setModal(false) : setModal(true);
+          }}
+        >
+          {arr[2]}
+        </h4>
         <p>2월 17일 발행</p>
       </div>
       <h4>{post}</h4>
-      <Modal></Modal>
+
+      {modal === true ? <Modal /> : null}
     </div>
   );
 }
