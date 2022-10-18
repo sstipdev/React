@@ -10,6 +10,7 @@ function App() {
   const [arr, setArr] = useState(["남자 코트 추천", "강남 우동맛집", "파이썬 독학"]);
   const [good, setGood] = useState([0, 0, 0]);
   const [modal, setModal] = useState(false);
+  const [title, setTitle] = useState(0);
 
   // const func = () => {
   //   setGood(good + 1);
@@ -69,7 +70,14 @@ function App() {
 
       {arr.map((a, i) => {
         return (
-          <div className="list" key={i} onClick={() => (modal === true ? setModal(false) : setModal(true))}>
+          <div
+            className="list"
+            key={i}
+            onClick={() => {
+              modal === true ? setModal(false) : setModal(true);
+              setTitle(i);
+            }}
+          >
             <h4>
               {arr[i]}
               <span
@@ -88,17 +96,26 @@ function App() {
       })}
       <h4>{post}</h4>
 
-      {modal === true ? <Modal /> : null}
+      {modal === true ? <Modal color={"skyblue"} title={title} arr={arr} setArr={setArr} /> : null}
     </div>
   );
 }
 
-const Modal = () => {
+const Modal = (props) => {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ background: props.color }}>
+      <h4>{props.arr[props.title]}</h4>
       <p>날짜</p>
       <p>내용</p>
+      <button
+        onClick={() => {
+          let copy = [...props.arr];
+          copy[0] = "여자코트 추천";
+          props.setArr(copy);
+        }}
+      >
+        글 수정
+      </button>
     </div>
   );
 };
