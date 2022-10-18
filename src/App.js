@@ -8,7 +8,7 @@ import { useState } from "react";
 function App() {
   const post = "강남 테헤란로";
   const [arr, setArr] = useState(["남자 코트 추천", "강남 우동맛집", "파이썬 독학"]);
-  const [good, setGood] = useState(0);
+  const [good, setGood] = useState([0, 0, 0]);
   const [modal, setModal] = useState(false);
 
   // const func = () => {
@@ -38,7 +38,7 @@ function App() {
       >
         가나다순
       </button>
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {arr[0]}
           <span
@@ -65,7 +65,27 @@ function App() {
           {arr[2]}
         </h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
+
+      {arr.map((a, i) => {
+        return (
+          <div className="list" key={i} onClick={() => (modal === true ? setModal(false) : setModal(true))}>
+            <h4>
+              {arr[i]}
+              <span
+                onClick={() => {
+                  let copy = [...good];
+                  copy[i] += 1;
+                  setGood(copy);
+                }}
+              >
+                👍 {good[i]}
+              </span>
+            </h4>
+            <p>2월 17일 발행</p>
+          </div>
+        );
+      })}
       <h4>{post}</h4>
 
       {modal === true ? <Modal /> : null}
