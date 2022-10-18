@@ -8,6 +8,7 @@ import { useState } from "react";
 function App() {
   const post = "강남 테헤란로";
   const [arr, setArr] = useState(["남자 코트 추천", "강남 우동맛집", "파이썬 독학"]);
+  const [sub] = useState(["1월 2일", "2월 15일", "3월 30일"]);
   const [good, setGood] = useState([0, 0, 0]);
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState(0);
@@ -90,13 +91,13 @@ function App() {
                 👍 {good[i]}
               </span>
             </h4>
-            <p>2월 17일 발행</p>
+            <p>{sub[i]}</p>
           </div>
         );
       })}
       <h4>{post}</h4>
 
-      {modal === true ? <Modal color={"skyblue"} title={title} arr={arr} setArr={setArr} /> : null}
+      {modal === true ? <Modal color={"skyblue"} sub={sub} title={title} arr={arr} setArr={setArr} /> : null}
     </div>
   );
 }
@@ -105,7 +106,7 @@ const Modal = (props) => {
   return (
     <div className="modal" style={{ background: props.color }}>
       <h4>{props.arr[props.title]}</h4>
-      <p>날짜</p>
+      <p>날짜 {props.sub[props.title]}</p>
       <p>내용</p>
       <button
         onClick={() => {
