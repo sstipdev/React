@@ -3,7 +3,7 @@
 
 // import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   const post = "강남 테헤란로";
@@ -70,7 +70,6 @@ function App() {
         </h4>
         <p>2월 17일 발행</p>
       </div> */}
-
       {arr.map((a, i) => {
         return (
           <div
@@ -124,8 +123,8 @@ function App() {
       >
         글 발행
       </button>
-
       {modal === true ? <Modal color={"skyblue"} sub={sub} title={title} arr={arr} setArr={setArr} /> : null}
+      <Modal2 />
     </div>
   );
 }
@@ -148,5 +147,29 @@ const Modal = (props) => {
     </div>
   );
 };
+
+class Modal2 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "kim",
+      age: 20,
+    };
+  }
+  render() {
+    return (
+      <div>
+        안녕하세요 !{this.state.age}
+        <button
+          onClick={() => {
+            this.setState({ age: 50 });
+          }}
+        >
+          버튼
+        </button>
+      </div>
+    );
+  }
+}
 
 export default App;
