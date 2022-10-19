@@ -8,10 +8,11 @@ import { useState } from "react";
 function App() {
   const post = "강남 테헤란로";
   const [arr, setArr] = useState(["남자 코트 추천", "강남 우동맛집", "파이썬 독학"]);
-  const [sub] = useState(["1월 2일", "2월 15일", "3월 30일"]);
-  const [good, setGood] = useState([0, 0, 0]);
+  const [sub] = useState(["1월 2일", "2월 15일", "3월 30일", "5월 30일"]);
+  const [good, setGood] = useState([0, 0, 0, 0, 0]);
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState(0);
+  const [value, setValue] = useState("");
 
   // const func = () => {
   //   setGood(good + 1);
@@ -22,6 +23,7 @@ function App() {
       <div className="black-nav">
         <h4 style={{ color: "green", fontSize: "18px" }}>ReactBlog</h4>
       </div>
+      <h4>{post}</h4>
       <button
         onClick={() => {
           let copy = [...arr];
@@ -82,9 +84,10 @@ function App() {
             <h4>
               {arr[i]}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   let copy = [...good];
-                  copy[i] += 1;
+                  copy[i] = copy[i] + 1;
                   setGood(copy);
                 }}
               >
@@ -92,10 +95,35 @@ function App() {
               </span>
             </h4>
             <p>{sub[i]}</p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const copy = [...arr];
+                copy.splice(i, 1);
+                setArr(copy);
+                i--;
+              }}
+            >
+              삭제
+            </button>
           </div>
         );
       })}
-      <h4>{post}</h4>
+      <input
+        onChange={(e) => {
+          const value = e.target.value;
+          setValue(value);
+        }}
+      ></input>
+      <button
+        onClick={() => {
+          let copy = [...arr];
+          copy.unshift(value);
+          setArr(copy);
+        }}
+      >
+        글 발행
+      </button>
 
       {modal === true ? <Modal color={"skyblue"} sub={sub} title={title} arr={arr} setArr={setArr} /> : null}
     </div>
@@ -111,7 +139,7 @@ const Modal = (props) => {
       <button
         onClick={() => {
           let copy = [...props.arr];
-          copy[0] = "여자코트 추천";
+          copy[3] = "여자코트 추천";
           props.setArr(copy);
         }}
       >
